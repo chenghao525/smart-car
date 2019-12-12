@@ -1,0 +1,9 @@
+{
+  "code": 200,
+  "data": [
+    {"id": "1", "name": "张三", "age": "大二","address":"上海"},
+    {"id": "2", "name": "李四", "age": "大三","address":"上海"},
+    {"id": "3", "name": "王五", "age": "大一","address":"上海"},
+    {"id": "4", "name": "赵六", "age": "大二","address":"上海"}
+  ]
+}

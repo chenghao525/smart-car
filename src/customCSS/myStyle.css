@@ -1,0 +1,19 @@
+.ant-menu-horizontal{
+  line-height:70px;
+}
+
+ .ant-menu-item-selected{
+  background-color: aqua !important;
+}
+
+.smart-table-container{
+  margin: 10% 5%;
+}
+
+.nav-1{
+ width:50%;
+}
+
+.nav-2{
+  width:50%;
+}
