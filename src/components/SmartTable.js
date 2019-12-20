@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Axios from 'axios';
 import { Table } from "antd";
+import {httpGet, httpPost} from '../config/request' 
+import axios from 'axios'
+import {API} from '../config/api'
 require("../customCSS/myStyle.css");
 
 class SmartTable extends Component {
@@ -11,11 +14,10 @@ class SmartTable extends Component {
     }
   }
 
-  componentWillMount(){
-    Axios.get('http://localhost:3000/mock.json', {}).then(res=>{
-      if(res.data.code === 200){
-        this.setState({tableData: res.data.data})
-      }
+  componentDidMount(){
+    httpGet(API.MOCK, {}).then(res=>{
+        console.log(res)
+        this.setState({tableData: res.data})
     })
   }
 

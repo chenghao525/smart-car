@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import { Menu, Icon } from "antd";
 require('../customCSS/myStyle.css');
 
@@ -23,12 +24,10 @@ class NavBar extends Component {
         theme="dark"
       >
         <Menu.Item key="mail" className="nav-1">
-          <Icon type="mail" />
-          Navigation One
+          <Link to='/'>Navigation One</Link >
         </Menu.Item>
         <Menu.Item key="cc" className="nav-2">
-          {/* <Icon type="mail" /> */}
-          Navigation two
+          <Link to='/SmartTable'>Navigation two</Link >
         </Menu.Item>
       </Menu>
     );
