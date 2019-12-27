@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Button, Modal} from "antd";
 import ImgUpload from './ImgUpload'
 import {
   Form,
@@ -12,7 +13,7 @@ require("../customCSS/myStyle.css");
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
+const portList = [
   {
     value: "COM1",
     label: "COM1",
@@ -26,19 +27,25 @@ const residences = [
   },
 ];
 
-class SmartForm extends React.Component {
+
+class AddPersonFormModal extends React.Component {
   state = {
-    imgFile:""
+    imgFile:"",
+    visible:false
   };
 
   getSelectedOptions(optionArray){
-    const children =optionArray.map(it => {
+    const children = optionArray.map(it => {
         return (
             <Option value={it.value} key={it.value}>{it.label}</Option>
         );
     });
     return children;
 };
+
+  showModel = () =>{
+    this.setState({visible:true});
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -52,6 +59,8 @@ class SmartForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { visible } = this.state;
+    
 
     const formItemLayout = {
       labelCol: {
@@ -65,10 +74,23 @@ class SmartForm extends React.Component {
     };
 
     return (
+      <Modal
+          visible={visible}
+          title="录入人员"
+          onOk={this.handleSubmit}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button key="back" onClick={this.handleCancel}>
+              取消
+            </Button>,
+            <Button key="submit" type="primary" onClick={this.handleSubmit}>
+              添加
+            </Button>,
+          ]}
+        >
       <Form
         className="smart-form-container"
         {...formItemLayout}
-        onSubmit={this.handleSubmit}
         style={{ margin: "100px 500px" }}
         labelAlign="left"
       >
@@ -80,7 +102,7 @@ class SmartForm extends React.Component {
                 message: "请选择串口"
               }
             ]
-          })(<Select>{this.getSelectedOptions(residences)}</Select>)}
+          })(<Select>{this.getSelectedOptions(portList)}</Select>)}
         </Form.Item>
         <Form.Item label="姓名">
           {getFieldDecorator("name", {
@@ -154,6 +176,7 @@ class SmartForm extends React.Component {
           
         </Form.Item>
       </Form>
+      </Modal>
     );
   }
 }
@@ -164,4 +187,5 @@ class SmartForm extends React.Component {
 
 // ReactDOM.render(<WrappedRegistrationForm />, mountNode);
 
-export default Form.create()(SmartForm);
+
+export default AddPersonFormModal;

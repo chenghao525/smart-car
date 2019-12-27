@@ -3,17 +3,22 @@
 }
 
  .ant-menu-item-selected{
-  background-color: aqua !important;
+  background-color: #1890FF !important;
 }
 
 .smart-table-container{
-  margin: 10% 5%;
+  margin: 5% 5%;
 }
 
-.nav-1{
- width:50%;
+.up-btn-container{
+  text-align: right;
+  margin: 5% 5% 0.4% 5%;
+}
+
+/* .nav-1{
+ width:33%;
 }
 
 .nav-2{
-  width:50%;
-}
+  width:33%;
+} */

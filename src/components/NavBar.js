@@ -23,11 +23,11 @@ class NavBar extends Component {
         mode="horizontal"
         theme="dark"
       >
-        <Menu.Item key="mail" className="nav-1">
-          <Link to='/'>Navigation One</Link >
-        </Menu.Item>
         <Menu.Item key="cc" className="nav-2">
-          <Link to='/SmartTable'>Navigation two</Link >
+          <Link to='/SmartTable'>车辆进出记录</Link >
+        </Menu.Item>
+        <Menu.Item key="RecordPersonTable" className="RecordPersonTable">
+          <Link to='/RecordPersonTable'>已录入人员</Link >
         </Menu.Item>
       </Menu>
     );

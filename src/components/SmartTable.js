@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import Axios from 'axios';
 import { Table } from "antd";
 import {httpGet, httpPost} from '../config/request' 
-import axios from 'axios'
 import {API} from '../config/api'
 require("../customCSS/myStyle.css");
 
