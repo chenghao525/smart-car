@@ -1,50 +1,20 @@
-import React, { Component } from "react";
-import {Button, Modal} from "antd";
-import ImgUpload from './ImgUpload'
-import {
-  Form,
-  Input,
-  Select,
-  AutoComplete
-} from "antd";
+import React from "react";
+import { Button, Modal, message } from "antd";
+import ImgUpload from "./ImgUpload";
+import { httpPost } from "../config/request";
+import { API } from "../config/api";
+import { Form, Input } from "antd";
 
 require("../customCSS/myStyle.css");
 
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
-
-const portList = [
-  {
-    value: "COM1",
-    label: "COM1",
-  },
-  {
-    value: "COM2",
-    label: "COM2",
-  },{
-    value: "COM3",
-    label: "COM3",
-  },
-];
-
-
 class AddPersonFormModal extends React.Component {
   state = {
-    imgFile:"",
-    visible:false
+    imgFile: [],
+    visible: false
   };
 
-  getSelectedOptions(optionArray){
-    const children = optionArray.map(it => {
-        return (
-            <Option value={it.value} key={it.value}>{it.label}</Option>
-        );
-    });
-    return children;
-};
-
-  showModel = () =>{
-    this.setState({visible:true});
+  showModal = () => {
+    this.setState({ visible: true });
   };
 
   handleSubmit = e => {
@@ -52,15 +22,68 @@ class AddPersonFormModal extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        let params = {
+          siteId: "2b772bca0b024b12b39d849422ac7e2f",
+          entranceGuardId: 0,
+          workerId: values.workerId,
+          partition: ["-1", "0", "1", "2"],
+          direction: "2",
+          name: values.name,
+          phone: values.phone,
+          sex: "男",
+          nation: "汉族",
+          birthday: "1989-12-22",
+          idNumber: values.idNumber,
+          cardId: values.cardId,
+          regionalizationHouseholdRegistration: "上海市",
+          idFront: "xxxxxxxxxxxxxxxxx",
+          idBack: " xxxxxxxxxxxxxxxxx",
+          vaildPhoto: this.state.imgFile,
+          companytype: values.companytype,
+          jobtype: values.jobType,
+          groupLeaderName: "李四",
+          projectName: "XXX 建筑施工项目",
+          workingTeam: "XXX 班组",
+          isTeamLeader: 0
+        };
+
+        httpPost(API.ADD_PERSONNEL_INFO, params)
+          .then(res => {
+            if (res.code === "1") {
+              message.success("人员录入成功", 3);
+              this.handleCancel();
+            }
+          })
+          .catch(err => {
+            message.error("人员录入失败", 3);
+          });
       }
     });
+    console.log("List", this.state.imgFile);
   };
 
+  handleCancel = () => {
+    this.props.form.resetFields();
+    this.setState({ visible: false });
+  };
+
+  getPhoto = fileList => {
+    var reader = new FileReader();
+    let that = this;
+    reader.readAsDataURL(fileList[0]);
+    reader.onload = function() {
+      console.log(this.result);
+      that.setState({ imgFile: this.result });
+    };
+  };
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
     const { visible } = this.state;
-    
 
     const formItemLayout = {
       labelCol: {
@@ -75,107 +98,94 @@ class AddPersonFormModal extends React.Component {
 
     return (
       <Modal
-          visible={visible}
-          title="录入人员"
-          onOk={this.handleSubmit}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              取消
-            </Button>,
-            <Button key="submit" type="primary" onClick={this.handleSubmit}>
-              添加
-            </Button>,
-          ]}
-        >
-      <Form
-        className="smart-form-container"
-        {...formItemLayout}
-        style={{ margin: "100px 500px" }}
-        labelAlign="left"
+        visible={visible}
+        title="录入人员"
+        onOk={this.handleSubmit}
+        onCancel={this.handleCancel}
+        footer={[
+          <Button key="back" onClick={this.handleCancel}>
+            取消
+          </Button>,
+          <Button key="submit" type="primary" onClick={this.handleSubmit}>
+            添加
+          </Button>
+        ]}
       >
-        <Form.Item label="选择串口">
-          {getFieldDecorator("portName", {
-            rules: [
-              {
-                required: true,
-                message: "请选择串口"
-              }
-            ]
-          })(<Select>{this.getSelectedOptions(portList)}</Select>)}
-        </Form.Item>
-        <Form.Item label="姓名">
-          {getFieldDecorator("name", {
-            rules: [
-              {
-                required: true,
-                message: "请输入姓名"
-              }
-            ]
-          })(<Input placeholder="请输入姓名"/>)}
-        </Form.Item>
-        <Form.Item label="电话">
-          {getFieldDecorator("phone", {
-            rules: [
-              {
-                required: true,
-                message: "请输入电话"
-              }
-            ]
-          })(<Input placeholder="请输入电话"/>)}
-        </Form.Item>
-        <Form.Item label="身份证号">
-          {getFieldDecorator("idNumber", {
-            rules: [
-              {
-                required: true,
-                message: "请输入身份证号"
-              }
-            ]
-          })(<Input placeholder="请输入身份证号"/>)}
-        </Form.Item>
-        <Form.Item label="卡号">
-          {getFieldDecorator("cardId", {
-            rules: [
-              {
-                required: true,
-                message: "请输入卡号"
-              }
-            ]
-          })(<Input placeholder="请输入卡号"/>)}
-        </Form.Item>
-        <Form.Item label="工种">
-          {getFieldDecorator("jobtype", {
-            rules: [
-              {
-                required: true,
-                message: "请输入工种"
-              }
-            ]
-          })(<Input placeholder="请输入工种"/>)}
-        </Form.Item>
-        <Form.Item label="施工单位">
-          {getFieldDecorator("companytype", {
-            rules: [
-              {
-                required: true,
-                message: "请输入施工单位"
-              }
-            ]
-          })(<Input placeholder="请输入施工单位"/>)}
-        </Form.Item>
-        <Form.Item label="图片">
-          {getFieldDecorator("validPhoto", {
-            rules: [
-              {
-                required: true,
-                message: "请上传图片"
-              }
-            ]
-          })(<ImgUpload></ImgUpload>)}
-          
-        </Form.Item>
-      </Form>
+        <Form
+          className="smart-form-container"
+          {...formItemLayout}
+          labelAlign="right"
+        >
+          <Form.Item label="姓名">
+            {getFieldDecorator("name", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入姓名"
+                }
+              ]
+            })(<Input placeholder="请输入姓名" />)}
+          </Form.Item>
+          <Form.Item label="电话">
+            {getFieldDecorator("phone", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入电话"
+                }
+              ]
+            })(<Input placeholder="请输入电话" />)}
+          </Form.Item>
+          <Form.Item label="身份证号">
+            {getFieldDecorator("idNumber", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入身份证号"
+                }
+              ]
+            })(<Input placeholder="请输入身份证号" />)}
+          </Form.Item>
+          <Form.Item label="卡号">
+            {getFieldDecorator("cardId", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入卡号"
+                }
+              ]
+            })(<Input placeholder="请输入卡号" />)}
+          </Form.Item>
+          <Form.Item label="工种">
+            {getFieldDecorator("jobtype", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入工种"
+                }
+              ]
+            })(<Input placeholder="请输入工种" />)}
+          </Form.Item>
+          <Form.Item label="施工单位">
+            {getFieldDecorator("companytype", {
+              rules: [
+                {
+                  required: true,
+                  message: "请输入施工单位"
+                }
+              ]
+            })(<Input placeholder="请输入施工单位" />)}
+          </Form.Item>
+          <Form.Item label="图片">
+            {getFieldDecorator("validPhoto", {
+              rules: [
+                {
+                  message: "请上传图片"
+                }
+              ]
+            })(<ImgUpload getPhoto={this.getPhoto}></ImgUpload>)}
+          </Form.Item>
+        </Form>
       </Modal>
     );
   }
@@ -187,5 +197,4 @@ class AddPersonFormModal extends React.Component {
 
 // ReactDOM.render(<WrappedRegistrationForm />, mountNode);
 
-
-export default AddPersonFormModal;
+export default Form.create()(AddPersonFormModal);

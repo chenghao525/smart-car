@@ -24,6 +24,22 @@
   color: white;
 }
 
+.header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    padding: 0 10vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.5s;
+    z-index: 1000;
+}
+
 .App-link {
   color: #61dafb;
 }

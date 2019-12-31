@@ -7,18 +7,44 @@
 }
 
 .smart-table-container{
-  margin: 5% 5%;
+  margin: 2% 5%;
 }
 
 .up-btn-container{
   text-align: right;
-  margin: 5% 5% 0.4% 5%;
+  margin: 2% 5% 0.4% 5%;
+}
+.smart-form-container{
+  text-align: center;
 }
 
-/* .nav-1{
- width:33%;
+.smart-form-container .ant-input{
+  width: 65%;
 }
 
-.nav-2{
-  width:33%;
-} */
+.smart-form-container .ant-select-selection{
+  width: 65%;
+  display: inline-block;
+}
+.top-btn-container{
+  padding-right: 6%;
+  float: right;
+}
+
+.top-btn{
+  margin-left: 4%;
+}
+
+.ant-table-thead > tr > th{
+  background-color: #CCCCCC;
+  font-weight: bold;
+}
+
+.nav-select{
+  width: 100px;
+}
+
+.select-chuankou{
+  float: left;
+  padding-left: 6%;
+}

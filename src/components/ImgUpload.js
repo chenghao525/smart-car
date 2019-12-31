@@ -54,9 +54,13 @@ class ImgUpload extends React.Component {
         });
       },
       beforeUpload: file => {
+        if(this.state.fileList.length >= 1){
+          message.error("只能上传最多一张图片",3)
+          return false
+        }
         this.setState(state => ({
           fileList: [...state.fileList, file],
-        }));
+        }), ()=> {this.props.getPhoto(this.state.fileList)});
         return false;
       },
       fileList,

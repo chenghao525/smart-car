@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "antd";
-import {httpGet, httpPost} from '../config/request' 
-import {API} from '../config/api'
+// import {httpGet, httpPost} from '../config/request' 
+// import {API} from '../config/api'
 require("../customCSS/myStyle.css");
 
 class SmartTable extends Component {
@@ -13,10 +13,10 @@ class SmartTable extends Component {
   }
 
   componentDidMount(){
-    httpGet(API.MOCK, {}).then(res=>{
-        console.log(res)
-        this.setState({tableData: res.data})
-    })
+    // httpGet(API.MOCK, {}).then(res=>{
+    //     console.log(res)
+    //     this.setState({tableData: res.data})
+    // })
   }
 
   render() {
@@ -35,30 +35,11 @@ class SmartTable extends Component {
         dataIndex: "address"
       }
     ];
-    const data = [
-      {
-        key: "1",
-        name: "John Brown",
-        age: 32,
-        address: "New York No. 1 Lake Park"
-      },
-      {
-        key: "2",
-        name: "Jim Green",
-        age: 42,
-        address: "London No. 1 Lake Park"
-      },
-      {
-        key: "3",
-        name: "Joe Black",
-        age: 32,
-        address: "Sidney No. 1 Lake Park"
-      }
-    ];
+
 
     return (
       <div className="smart-table-container">
-        <Table columns={columns} dataSource={tableData} size="large" />
+        <Table columns={columns} dataSource={tableData} size="large" style={{ marginTop: "6.7%" }} />
       </div>
     );
   }
