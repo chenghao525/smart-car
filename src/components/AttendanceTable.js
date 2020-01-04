@@ -24,7 +24,7 @@ class AttendanceTable extends Component {
     httpPost(API.GET_ACCESSRECORD, params).then(res => {
       if (res.code === "1") {
         this.setState({
-          tableData: res.data.accessRecordList,
+          tableData: res.data.AccessRecordList,
           pagination: {
             total: res.data.total,
             currentPage: res.data.currentPage,
@@ -33,7 +33,7 @@ class AttendanceTable extends Component {
         });
       }
     }).catch(err => {
-      message.error("Error",3);
+      message.error("无法获取考勤记录",3);
     });
   }
 

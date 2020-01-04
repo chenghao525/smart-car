@@ -2,7 +2,7 @@ import axios from 'axios'
 import {API} from './api'
 
 axios.defaults.baseURL = API.BASE_URL
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 axios.defaults.timeout = 100000
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 

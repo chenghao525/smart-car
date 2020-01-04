@@ -10,11 +10,15 @@ require("../customCSS/myStyle.css");
 class AddPersonFormModal extends React.Component {
   state = {
     imgFile: [],
-    visible: false
+    visible: false,
+    workerId: ""
   };
 
   showModal = () => {
-    this.setState({ visible: true });
+    const uuidv1 = require("uuid/v1");
+    let myUU = uuidv1();
+    console.log("UUID:",myUU)
+    this.setState({ visible: true, workerId: myUU });
   };
 
   handleSubmit = e => {
@@ -39,7 +43,7 @@ class AddPersonFormModal extends React.Component {
           idFront: "xxxxxxxxxxxxxxxxx",
           idBack: " xxxxxxxxxxxxxxxxx",
           vaildPhoto: this.state.imgFile,
-          companytype: values.companytype,
+          companytype: "xxxx",
           jobtype: values.jobType,
           groupLeaderName: "李四",
           projectName: "XXX 建筑施工项目",
@@ -72,8 +76,10 @@ class AddPersonFormModal extends React.Component {
     let that = this;
     reader.readAsDataURL(fileList[0]);
     reader.onload = function() {
-      console.log(this.result);
-      that.setState({ imgFile: this.result });
+      let base64 = this.result
+      let newBase64 = base64.replace(/\r|\n/g, '').replace('data:image/jgp;base64,', '').replace('data:image/png;base64,', '').replace('data:image/jpeg;base64,','');
+//      console.log("base64",newBase64);
+      that.setState({ imgFile: newBase64 });
     };
   };
 
@@ -126,11 +132,32 @@ class AddPersonFormModal extends React.Component {
               ]
             })(<Input placeholder="请输入姓名" />)}
           </Form.Item>
+          <Form.Item label="工号">
+            {getFieldDecorator("workerId", {
+              initialValue: this.state.workerId,
+              rules: [
+                {
+                  required:true
+                }
+              ]
+            })(<Input disabled/>)}
+          </Form.Item>
+          <Form.Item label="工种">
+            {getFieldDecorator("jobType", {
+              initialValue:"普工",
+              rules: [
+                {
+                  required: true,
+                  message: "请输入工种"
+                }
+              ]
+            })(<Input placeholder="请输入工种" />)}
+          </Form.Item>
           <Form.Item label="电话">
             {getFieldDecorator("phone", {
               rules: [
                 {
-                  required: true,
+                  required: false,
                   message: "请输入电话"
                 }
               ]
@@ -140,7 +167,7 @@ class AddPersonFormModal extends React.Component {
             {getFieldDecorator("idNumber", {
               rules: [
                 {
-                  required: true,
+                  required: false,
                   message: "请输入身份证号"
                 }
               ]
@@ -150,31 +177,11 @@ class AddPersonFormModal extends React.Component {
             {getFieldDecorator("cardId", {
               rules: [
                 {
-                  required: true,
+                  required: false,
                   message: "请输入卡号"
                 }
               ]
             })(<Input placeholder="请输入卡号" />)}
-          </Form.Item>
-          <Form.Item label="工种">
-            {getFieldDecorator("jobtype", {
-              rules: [
-                {
-                  required: true,
-                  message: "请输入工种"
-                }
-              ]
-            })(<Input placeholder="请输入工种" />)}
-          </Form.Item>
-          <Form.Item label="施工单位">
-            {getFieldDecorator("companytype", {
-              rules: [
-                {
-                  required: true,
-                  message: "请输入施工单位"
-                }
-              ]
-            })(<Input placeholder="请输入施工单位" />)}
           </Form.Item>
           <Form.Item label="图片">
             {getFieldDecorator("validPhoto", {

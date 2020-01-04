@@ -35,15 +35,17 @@ class RecordPersonTable extends Component {
 
   handleDelete = record => {
     console.log(record);
+    httpPost(API.DELETE_PERSONNEL_INFO, {"workerId":record.workerId})
+      .then(res => {
+        if (res.code === "1") {
+          message.success("人员删除成功")
+          this.getTableData(this.state.pagination.current)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      });
   };
-
-  // handlePageChange = (page, pageSize) => {
-  //   this.setState({
-  //     pagination:{
-  //       currentPage:page
-  //     }
-  //   })
-  // };
 
   getTableData = page => {
     let params = {
@@ -53,7 +55,7 @@ class RecordPersonTable extends Component {
       .then(res => {
         if (res.code === "1") {
           this.setState({
-            tableData: res.data.accessRecordList,
+            tableData: res.data.PersonInfoList,
             pagination: {
               total: res.data.total,
               currentPage: res.data.currentPage,
@@ -63,7 +65,7 @@ class RecordPersonTable extends Component {
         }
       })
       .catch(err => {
-        message.error("Error",3);
+        message.error("无法获取录入人员数据",3);
       });
   };
 

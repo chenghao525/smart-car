@@ -31,8 +31,8 @@ class NavBar extends Component {
   getSelectedOptions(optionArray) {
     const children = optionArray.map(it => {
       return (
-        <Option value={it.value} key={it.value}>
-          {it.label}
+        <Option value={it} key={it}>
+          {it}
         </Option>
       );
     });
@@ -88,7 +88,7 @@ class NavBar extends Component {
   };
 
   getPortOptions = ()=>{
-    httpGet(API.GET_PORTLIST, {})
+    httpPost(API.GET_PORTLIST, {})
     .then(res => {
       if (res.code === "1") {
         this.setState({
