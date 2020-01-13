@@ -97,12 +97,13 @@ class NavBar extends Component {
       }
     })
     .catch(err => {
-      message.error(err);
+      console.log("获取串口失败");
     });
   }
 
   componentWillMount() {
     this.getCurrentPort();
+    this.getPortOptions();
   }
   render() {
     const path = this.props.location.pathname;

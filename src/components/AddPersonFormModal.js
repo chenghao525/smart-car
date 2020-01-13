@@ -1,11 +1,23 @@
 import React from "react";
-import { Button, Modal, message } from "antd";
+import { Button, Modal, message, Select } from "antd";
 import ImgUpload from "./ImgUpload";
 import { httpPost } from "../config/request";
 import { API } from "../config/api";
 import { Form, Input } from "antd";
 
 require("../customCSS/myStyle.css");
+
+const { Option } = Select;
+
+
+const jobType = [
+  "拌站管理员",
+  "实验室人员",
+  "铲车驾驶员",
+  "本厂机修人员",
+  "料场操作员",
+  "临时人员"
+];
 
 class AddPersonFormModal extends React.Component {
   state = {
@@ -83,6 +95,17 @@ class AddPersonFormModal extends React.Component {
     };
   };
 
+  getSelectedOptions(optionArray) {
+    const children = optionArray.map(it => {
+      return (
+        <Option value={it} key={it}>
+          {it}
+        </Option>
+      );
+    });
+    return children;
+  }
+
   componentDidMount() {
     this.props.onRef(this);
   }
@@ -144,14 +167,18 @@ class AddPersonFormModal extends React.Component {
           </Form.Item>
           <Form.Item label="工种">
             {getFieldDecorator("jobType", {
-              initialValue:"普工",
+              initialValue:"拌站管理员",
               rules: [
                 {
                   required: true,
                   message: "请输入工种"
                 }
               ]
-            })(<Input placeholder="请输入工种" />)}
+            })(<Select
+              className="jobType-select"
+            >
+              {this.getSelectedOptions(jobType)}
+            </Select>)}
           </Form.Item>
           <Form.Item label="电话">
             {getFieldDecorator("phone", {

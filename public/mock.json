@@ -1,22 +1,15 @@
 {
-  "code": 200,
-  "data": [
-    {"workerId": "1", "name": "张三", "personId": "12434","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "2", "name": "张er", "personId": "12334","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "3", "name": "张3", "personId": "454232","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "4", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "5", "name": "张5", "personId": "32435","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "6", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "7", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "8", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "9", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "10", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "11", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "12", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "13", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "14", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"},
-    {"workerId": "15", "name": "张4", "personId": "546767","cardId":"123456","addTime":"2019.12.31"}
-  ]
+  "code": "1",
+  "data": {
+    "portList":[
+      "COM1",
+      "COM2",
+      "COM3",
+      "COM4",
+      "COM5"
+    ]
+  }
+    
 }
 
 

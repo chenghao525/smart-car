@@ -1,7 +1,7 @@
-// const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:3000'
 // const BASE_URL = 'http://180.169.194.140:26397'
 // const BASE_URL = 'http://192.168.2.101:8004'
-const BASE_URL = document.location.origin
+// const BASE_URL = document.location.origin
 
  export const API = {
   BASE_URL: BASE_URL,
