@@ -61,15 +61,25 @@ class NavBar extends Component {
   };
 
   handleAlarm = ()=>{
-    httpPost(API.ALARM, {zzz:'zzz'})
+    httpGet("/", "")
     .then(res => {
-      if (res.code === "1") {
-        message.success("报警成功",3)
-      }
+      console.log(res);
     })
     .catch(err => {
       message.error("报警失败",3);
     });
+
+
+
+    // httpPost(API.ALARM, {zzz:'zzz'})
+    // .then(res => {
+    //   if (res.code === "1") {
+    //     message.success("报警成功",3)
+    //   }
+    // })
+    // .catch(err => {
+    //   message.error("报警失败",3);
+    // });
   }
 
   handleSelect = value => {
